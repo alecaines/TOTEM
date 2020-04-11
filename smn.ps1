@@ -9,13 +9,16 @@ $reponame = $url.Substring($i+1)
 $type = ".ps1"
 
 #### Construct cmdlet name ####
-$cmdletname = "$($reponame)$($type)"
+$cmdletname = "C:/cmdlets/$($reponame)$($type)"
 
 
 #### See if repo exists ####
  Try{
  	Write-Verbose "Cloning..."
+	$cwd= (Get-Location).path
+	cd C:/cmdlets
  	git clone $url
+	cd "$($cwd)"
  	Write-Verbose "Clone successful"
  }
  Catch{
@@ -25,10 +28,9 @@ $cmdletname = "$($reponame)$($type)"
 
 #### Write cmdlet name ####
 echo > $cmdletname
-#echo "cd $reponame" >> "$cmdletname"
-dir ./$reponame/*.ps1
+dir $reponame/*.ps1
 ""
 $ps = Read-Host -Prompt "Choose one of the above to execute (minus extension)"
 
 ### Write main name###
-echo "./$($reponame)/$($ps)$($type)" >> "$cmdletname"
+echo "./C:/cmdlets/$($reponame)/$($ps)$($type)" >> "$cmdletname"
