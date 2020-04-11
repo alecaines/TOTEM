@@ -1,4 +1,5 @@
+
 $banish = Read-Host -Prompt "Which package would you like to uninstall?"
 
-rmdir $banish 
-del "$($banish).ps1$"
+Remove-Item -LiteralPath $banish -Force -Recurse
+del "$($banish).ps1"
